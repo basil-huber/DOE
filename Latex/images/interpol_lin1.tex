@@ -1,0 +1,91 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figW,
+height=\figH,
+at={(0\figW,0\figH)},
+scale only axis,
+every outer x axis line/.append style={black},
+every x tick label/.append style={font=\color{black}},
+xmin=0,
+xmax=14,
+xlabel={$\text{x}_\text{1}\text{ (Parameter A)}$},
+xmajorgrids,
+every outer y axis line/.append style={black},
+every y tick label/.append style={font=\color{black}},
+ymin=5,
+ymax=13,
+ylabel={$\text{x}_\text{2}\text{ (Parameter B)}$},
+ymajorgrids,
+axis background/.style={fill=white},
+title={Travel time},
+axis x line*=bottom,
+axis y line*=left,
+legend style={legend cell align=left,align=left,draw=black}
+]
+\addplot [color=red,mark size=2.5pt,only marks,mark=asterisk,mark options={solid}]
+  table[row sep=crcr]{%
+1	9\\
+9	9\\
+3	5\\
+7	13\\
+};
+\addlegendentry{d = -1};
+
+\addplot [color=green,mark size=2.5pt,only marks,mark=asterisk,mark options={solid}]
+  table[row sep=crcr]{%
+1	5\\
+1	13\\
+5	5\\
+13	13\\
+5.33	9.66\\
+};
+\addlegendentry{d = 0};
+
+\addplot [color=blue,mark size=2.5pt,only marks,mark=asterisk,mark options={solid}]
+  table[row sep=crcr]{%
+1	9\\
+9	9\\
+3	5\\
+7	13\\
+};
+\addlegendentry{d = 1};
+
+\addplot [color=red,mark size=2.5pt,only marks,mark=o,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+1	9\\
+9	9\\
+3	5\\
+7	13\\
+};
+\addplot [color=green,mark size=2.5pt,only marks,mark=o,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+1	5\\
+1	13\\
+5	5\\
+13	13\\
+5.33	9.66\\
+};
+\addplot [color=blue,mark size=2.5pt,only marks,mark=o,mark options={solid},forget plot]
+  table[row sep=crcr]{%
+1	9\\
+9	9\\
+3	5\\
+7	13\\
+};
+\addplot [color=blue,solid,forget plot]
+  table[row sep=crcr]{%
+1	5\\
+1	13\\
+13	13\\
+13	5\\
+1	5\\
+};
+\end{axis}
+\end{tikzpicture}%

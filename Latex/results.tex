@@ -1,0 +1,202 @@
+\section{Results}
+We estimate the effects (coefficients of the model) by minimizing the the residue in the sense of least square as expressed by eq. \ref{eq:least_square}.
+\begin{equation}\label{eq:least_square}
+	\hat\alpha =  \argmin_{\alpha}{(\sum_{k = 1}^{N} (y_{ak} -  X_{k}\alpha)^2)}
+\end{equation}
+$\hat\alpha$ are the estimated half effects, $N$ the number of experiments, $y_{ak}$ is the result of the $k$th experiment for response $a$ and $X_k$ is the $k$th row of the model matrix $X$ containing the values for each parameter as well as the corresponding effects and $\alpha$ are the half effects.
+We define the dispersion matrix $D$ of the model as
+\begin{equation}
+	D = (X^T X)^{-1}.
+\end{equation}
+The solution to eq. \ref{eq:least_square} can be computed as
+\begin{equation}
+	\hat\alpha = D X^{T} Y.
+\end{equation}
+
+%The results of the simulation versus the parameter values are shown in fig. \ref{fig:results_y}.
+
+%\begin{figure}
+%    \centering
+%    \includegraphics{images/epsFig}
+%    \caption{Insert caption}
+%\end{figure} 
+\subsection{Linear Model}
+First, we will discuss the results for the linear model.
+Fig. \ref{fig:effects_lin} shows the half effects for both the travel time and the jerk in blue. It can be seen that the influence of parameter A (coefficients $a_1$ and $b_1$) on both the travel time and the jerk is negligible compared to the other effects.
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+		\setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}	
+	    \input{images/effects_linear_time.tex}
+	    \caption{travel time}
+	\end{subfigure}
+	%\par\medskip
+    \begin{subfigure}[b]{0.5\textwidth}
+	    \setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}
+	    \input{images/effects_linear_jerk.tex}
+   	    \caption{jerk}
+	\end{subfigure}
+	
+    \caption{Relative half effects on the mean travel time (a) and the mean experienced jerk (b) using a linear model without interactions; In blue results for using all parameters and in turquoise if omitting parameter A (coefficients $a1$ and $b1$)}\label{fig:effects_lin}
+\end{figure} 
+
+The ANOVA table is shown in tbl. \ref{tbl:anova_lin_time} for the mean travel time and in tbl. \ref{tbl:anova_lin_jerk} for the mean experienced jerk. The p-value for the travel time model (2.35e-7) is significantly lower than the p-value for jerk model (4.72e-2). This suggest that the travel time model fits much better the experimental data.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{l r r r r r}
+	%\thickline
+	\input{tables/anova_linear_time.tex}
+	\end{tabular}
+	
+	\bigskip
+
+	\begin{tabular}{l r r r r r}
+	%\thickline
+	\input{tables/anova_linear_mod_time.tex}	
+	\end{tabular}
+	\caption{ANOVA table of the \textbf{linear model} for the mean \textbf{travel time}; Top: full linear model; Bottom: omitting parameter A (coefficient $a1$); It shows the sums of squares (SS), the degrees of freedom (df), the mean square of the error (MS), the Fisher coefficient (F) and the p-value (p), signifying the probability that this result occurs at random;}\label{tbl:anova_lin_time}
+\end{table}
+
+Fig. \ref{fig:interpol_lin1} shows the experimental results for the travel time as well as the planes representing the interpolation using the effects that we have found. The colors correspond to different values of parameter C, i.e., the dots should be close to the plane of the same color. Fig. \ref{fig:interpol_lin2} shows the results in terms of jerk. Note that here the colors correspond to the value of the parameter A. It can be seen that the points for measurements with the same values for parameter B and C are close by, encouraging the assumption that the influence of parameter A is negligible.
+
+We therefore adjust both our models by omitting parameter A. We expect the residue to increase slightly since we remove a degree of freedom. The removal of a degree of freedom should however increase F-factor and therefore reduce the p-value, since the residue gains a degree of freedom. The resulting estimation of the half effects is shown in fig. \ref{fig:effects_lin} in turquoise. It can be seen that the values of the half effects are similar to the previous results.
+
+ When comparing the ANOVA tables for the travel time (tbl. \ref{tbl:anova_lin_time}), it can be seen that the $p$ value decreases by a factor of approximately 13, suggesting that omitting parameter A is improving our model. For the model of the jerk, the p-value   decreases by a factor of approximately 2.7 (cf. tbl. \ref{tbl:anova_lin_jerk}).
+\begin{figure}
+    \centering
+    \setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}
+	\input{images/interpol_lin1.tex}
+    \caption{Insert caption}
+\end{figure}
+
+
+\begin{table}[h!]
+	\centering
+
+	\begin{tabular}{l r r r r r}
+	%\thickline
+	\input{tables/anova_linear_jerk.tex}
+	\end{tabular}
+
+	\bigskip
+
+	\begin{tabular}{l r r r r r}
+	%\thickline	
+	\input{tables/anova_linear_mod_jerk.tex}	
+	\end{tabular}
+
+	\caption{ANOVA table of the \textbf{linear model} for the mean experienced \textbf{jerk}; Top: full linear model; Bottom: omitting parameter A (coefficient $b1$)}\label{tbl:anova_lin_jerk}
+\end{table}
+
+
+\subsection{Linear Model with interactions}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+	    \setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}
+	    \input{images/effects_linear_interactions_time.tex}
+	    \caption{travel time}
+	\end{subfigure}
+    \begin{subfigure}[b]{0.5\textwidth}
+		\setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}	
+	    \input{images/effects_linear_interactions_jerk.tex}
+   	    \caption{jerk}
+	\end{subfigure}
+	
+    \caption{Relative half effects on the mean travel time (a) and the mean experienced jerk (b) using a \textbf{linear model with interactions}; In blue results for using all parameters and in turquoise if omitting coefficients $a1$, $a12$ and $a13$ and $b1$, $b12$, $b13$, and $b23$)}\label{fig:effects_lin_interactions}
+\end{figure} 
+Fig. \ref{fig:effects_lin_interactions} shows the effects for this model. For both response variables we can again see that the influences of parameter A is negligible as it was the case for the purely linear model. Furthermore, the interactions appear to be negligible in the case of the jerk model. Considering the ANOVA table for this model (tbl. \ref{tbl:anova_lin_interactions_time} and tbl. \ref{tbl:anova_lin_interactions_jerk}), it can be seen that the p value is significantly higher than for the linear model. This suggests that the addition of the interactions does not improve the model. This is due to the fact that the number of degrees of freedom of the models increase significantly were as whereas the residues remain approximately the same as for the linear models. While removing parameter A from the travel time model reduces it's p-value, it still remains inferior to the linear model.
+
+\begin{table}[h!]
+	\centering
+
+	\begin{tabular}{l r r r r r}
+	%\thickline
+	\input{tables/anova_linear_interactions_time.tex}
+	\end{tabular}
+
+	\bigskip
+
+	\begin{tabular}{l r r r r r}
+	%\thickline	
+	\input{tables/anova_linear_interactions_mod_time.tex}	
+	\end{tabular}
+
+	\caption{ANOVA table of the \textbf{linear model with interactions} for the mean \textbf{travel time}; Top: full linear model with interactions; Bottom: omitting parameter A (coefficients $a1$, $a12$ and $a13$)}\label{tbl:anova_lin_interactions_time}
+\end{table}
+
+\begin{table}[h!]
+	\centering
+
+	\begin{tabular}{l r r r r r}
+	%\thickline
+	\input{tables/anova_linear_interactions_jerk.tex}
+	\end{tabular}
+
+	%\bigskip
+
+	%\begin{tabular}{l r r r r r}
+	%\thickline	
+	%\input{tables/anova_linear_interactions_jerk.tex}	
+	%\end{tabular}
+
+	\caption{ANOVA table of the \textbf{linear model with interactions} for the mean experienced \textbf{jerk}}\label{tbl:anova_lin_interactions_jerk}
+\end{table}
+
+
+
+\subsection{Quadratic Model}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+	    \setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}
+	    \input{images/effects_quadr_time.tex}
+	    \caption{travel time}
+	\end{subfigure}
+    \begin{subfigure}[b]{0.5\textwidth}
+		\setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}	
+	    \input{images/effects_quadr_jerk.tex}
+   	    \caption{jerk}
+	\end{subfigure}
+	
+    \caption{Relative half effects on the mean travel time (a) and the mean experienced jerk (b) using a \textbf{quadratic model}; In blue results for using all parameters and in turquoise if omitting coefficients $a13$ and $b13$ and $b23$}\label{fig:effects_quadr}
+\end{figure} 
+
+
+Fig. \ref{fig:effects_quadr} shows the effects for the quadratic model. Interestingly, in this model parameter A has the largest influence on both the mean travel time and the mean experienced jerk. Fig. \ref{fig:interpol_quadr} shows the experimental values as well as the quadratic interpolation for the mean arrival time. It can be seen, that the fitted surface is much closer to the measurement points. However, this is mainly due to the fact of introducing additional degrees of freedom. Tbl. \ref{tbl:anova_quadratic_time} and tbl. \ref{tbl:anova_quadratic_jerk} shows that for both responses, the p-value is higher than for the linear model, suggesting that the quality of model decreases by introducing quadratic terms.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{l r r r r r}
+	%\thickline
+	\input{tables/anova_quadratic_time.tex}
+	\end{tabular}
+
+	\bigskip
+
+	\begin{tabular}{l r r r r r}
+	%\thickline	
+	\input{tables/anova_quadratic_mod_time.tex}	
+	\end{tabular}
+	\caption{ANOVA table of the \textbf{quadratic} model for the mean \textbf{travel time}; Top: full quadratic model; Bottom: omitting coefficient $a12$}\label{tbl:anova_quadratic_time}
+\end{table}
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{l r r r r r}
+	%\thickline
+	\input{tables/anova_quadratic_jerk.tex}
+	\end{tabular}
+
+	\bigskip
+
+	\begin{tabular}{l r r r r r}
+	%\thickline	
+	\input{tables/anova_quadratic_mod_jerk.tex}	
+	\end{tabular}
+	
+	\caption{ANOVA table of the \textbf{quadratic} model for the mean \textbf{travel time}; Top: full quadratic model; Bottom: omitting coefficient $b12$ and $b13$}\label{tbl:anova_quadratic_jerk}
+\end{table}

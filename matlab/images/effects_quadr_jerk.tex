@@ -1,0 +1,57 @@
+% This file was created by matlab2tikz.
+%
+\definecolor{mycolor1}{rgb}{0.20000,0.20000,0.50000}%
+\definecolor{mycolor2}{rgb}{0.00000,0.70000,0.70000}%
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figW,
+height=\figH,
+at={(0\figW,0\figH)},
+scale only axis,
+separate axis lines,
+every outer x axis line/.append style={black},
+every x tick label/.append style={font=\color{black}},
+xmin=0,
+xmax=12,
+xtick={0,1,2,3,4,5,6,7,8,9,10},
+xticklabels={{$b_0$},{$b_1$},{$b_2$},{$b_3$},{$b_{12}$},{$b_{13}$},{$b_{23}$},{$b_{11}$},{$b_{22}$},{$b_{33}$}},
+xlabel={coefficients},
+every outer y axis line/.append style={black},
+every y tick label/.append style={font=\color{black}},
+ymin=-2,
+ymax=3,
+ylabel={bi/bo},
+axis background/.style={fill=white},
+xlabel shift={-4pt}
+]
+\addplot[ybar,bar width=0.5,draw=black,fill=mycolor1,area legend] plot table[row sep=crcr] {%
+1	1\\
+2	1.86406685964224\\
+3	-0.227113190318953\\
+4	0.544838197826409\\
+5	-1.73747866012659\\
+6	-0.0089633671434854\\
+7	0.0151134705109152\\
+8	2.77139409919224\\
+9	0.181327519247342\\
+10	-0.576998447029369\\
+};
+\addplot [color=black,solid,forget plot]
+  table[row sep=crcr]{%
+0	0\\
+12	0\\
+};
+\addplot[ybar,bar width=0.25,draw=black,fill=mycolor2,area legend] plot table[row sep=crcr] {%
+1	1\\
+2	1.86406685964224\\
+3	-0.227113190318953\\
+4	0.547825986874237\\
+5	-1.73747866012659\\
+8	2.77139409919224\\
+9	0.181327519247342\\
+10	-0.576998447029369\\
+};
+\end{axis}
+\end{tikzpicture}%

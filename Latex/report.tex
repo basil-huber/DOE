@@ -1,0 +1,49 @@
+\documentclass[paper=a4, twocolumn]{article}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{tabularx}
+
+% stuff for matlab2tikz
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+  %% the following commands are sometimes needed
+  \usetikzlibrary{plotmarks}
+  \usepackage{grffile}
+\newlength\figW
+\newlength\figH
+\setlength{\figW}{0.43\textwidth}
+\setlength{\figH}{0.15\textwidth}
+
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\begin{document}
+
+\title{Title}
+\author{Nicolas Dousse\\Basil Huber }
+\date{August 2015}
+
+
+% abstract and title (for 1 column abstract)
+\twocolumn[\begin{@twocolumnfalse}
+	\maketitle
+	\begin{abstract}
+	\input{abstract}
+	\end{abstract}
+\end{@twocolumnfalse}]
+
+
+\input{introduction}
+
+\input{procedure}
+
+\input{design_of_experiments}
+
+\input{results}
+
+\input{conclusion}
+
+\end{document}

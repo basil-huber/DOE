@@ -19,14 +19,5 @@ Comfort studies in commercial aviation focus on on-board parameters such as nois
 
 The definition of comfort states that "\textit{comfort has both psychological and physiological components, but it involves a sense of subjective well-being and the absence of discomfort, stress or pain}"\cite{richards_psychology_1980}. In this work, we focus only on the physiological component of comfort. 
 
-\subsection{State-of-the-art in collision avoidance}
-
-The state-of-the-art in collision avoidance strategies is very large. However, a taxonomy regrouping methods in main categories was proposed in \cite{angelov_sense_2012}. In our work, the game theory methods and the multi-agent methods are regrouped together. The categories are:
-\begin{itemize}
-	\item \emph{Rule-based methods}
-	\item \emph{Game theory methods} \& \emph{Multi-agents methods}
-	\item \emph{Fields methods}
-	\item \emph{Geometric methods}
-	\item \emph{Numerical optimization methods}
-	\item \emph{Combined methods}
-\end{itemize}
+In this work, we try to find a model that allows us to estimated the influence of three parameters of the collision avoidance algorithm on the mean travel time during an experiment and the mean jerk a vehicle is subjected to. Having a good model of the travel time and the jerk will allow us to chose the parameters in order to optimize the algorithm's performance. We fit a linear model, a linear model with interactions and a quadratic model with interactions on the data. We fit the model by optimizing the effects in the sense of least-squares.
+We use Analysis of Variance (ANOVA) to compare the quality of the different models.

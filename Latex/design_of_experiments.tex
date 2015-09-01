@@ -1,3 +1,4 @@
+\externaldocument{results}
 \section{Design of Experiments}
 
 We design the experiment to efficiently determine the influence of the  parameter $a$, $b$, and $d$ on the mean travel time and the mean jerk experienced during the journey.
@@ -8,7 +9,7 @@ The complex nature of the problem does not allow to make assumptions on the mode
 	y_b &= b_0 + \displaystyle\sum_{i=1}^{3} b_i x_i + \varepsilon_b,
 \end{align}
 \end{subequations}
-where $y_a$ and $y_b$ are the responses (mean travel time and mean jerk), $a_i$ and $b_i$ are the effects of the $i$th parameter on the travel time and the jerk respectively, $x_1$, $x_2$ and $x_3$ are the values taken by the parameters A, B and C respectively. Since the results of the analysis suggest that the influence of parameter A on the travel time is negligible (cf. \ref{}), we adjust our model by omitting this parameter.
+where $y_a$ and $y_b$ are the responses (mean travel time and mean jerk), $a_i$ and $b_i$ are the effects of the $i$th parameter on the travel time and the jerk respectively, $x_1$, $x_2$ and $x_3$ are the values taken by the parameters A, B and C respectively. Since the results of the analysis suggest that the influence of parameter A on the travel time is negligible (cf. section~\ref{sec:results}), we adjust our model by omitting this parameter.
 The nature of the algorithm suggest that interactions could play an important role. Hence, we will also investigate a linear model allowing for interactions between the parameters as described in eq. \ref{eq:model_inter}.
 \begin{subequations}\label{eq:model_inter}
 \begin{align}
@@ -26,4 +27,31 @@ As for the linear model, we found that the influence of parameter A and it's int
 which has additionally the quadratic factors $a_{ii}$.
 Due to the limited number of experiments, we choose not to test higher order models.
 
+\subsection{Analysis of Variance}
+To evaluate our model, we use an F-test. We therefore define the sum of squares ($\text{SS}$) as
+\begin{equation}
+	\text{SS}_\text{eff} = \| \hat{Y} \|^2 = \| X \hat{\alpha} \|^2
+\end{equation}
+for the effects and as
+\begin{equation}
+	\text{SS}_\text{res} = \| R \|^2 = \| Y - \hat{Y} \| = \| Y - X \hat{\alpha} \|^2.
+\end{equation}
+The mean of squares ($\text{MS}$) as the distribution of the sum of squares ($\text{SS}$) over the degree's of freedom $\text{df}$:
+\begin{equation}
+	\text{MS}_\text{eff} = \frac{\text{SS}_\text{eff}}{\text{df}_\text{eff}} \quad \text{and} \quad 
+	\text{MS}_\text{res} = \frac{\text{SS}_\text{res}}{\text{df}_\text{res}}
+\end{equation},
+where the degrees of freedom of the effects $\text{df}_\text{eff}$ is the number of effects including the constant and the degrees of freedom of the residue $\text{df}_\text{res}$ equals the number of experiment $N$ minus the degrees of freedom of the effects:
+\begin{equation}
+\text{df}_\text{res} = N - \text{df}_\text{eff}.
+\end{equation}
+We define Fisher's coefficient $F$ as follows:
+\begin{equation}
+F = \frac{\text{MS}_\text{eff}}{\text{MS}_\text{res}}.
+\end{equation}
 
+Using Fisher's coefficient, we can express the probability of this ratio occurring at random $p$ as the cumulative distribution function at $F$ for the degrees of freedom $\text{df}_\text{eff}$ and $\text{df}_\text{res}$:
+\begin{equation}
+	p = \int_{-\inf}^F f(t,\text{df}_\text{eff},\text{df}_\text{res}) \mathrm{d}t,
+\end{equation}
+where $f(x,\text{df}_1,\text{df}_2)$ is the probability density function of an F-distributed variable. Hence, the lower the p-value, the better is the model. We use the p-value as a metric to measure the performance of our model.

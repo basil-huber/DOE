@@ -1,25 +1,6 @@
-\section{Results}
-We estimate the effects (coefficients of the model) by minimizing the the residue in the sense of least square as expressed by eq. \ref{eq:least_square}.
-\begin{equation}\label{eq:least_square}
-	\hat\alpha =  \argmin_{\alpha}{(\sum_{k = 1}^{N} (y_{ak} -  X_{k}\alpha)^2)}
-\end{equation}
-$\hat\alpha$ are the estimated half effects, $N$ the number of experiments, $y_{ak}$ is the result of the $k$th experiment for response $a$ and $X_k$ is the $k$th row of the model matrix $X$ containing the values for each parameter as well as the corresponding effects and $\alpha$ are the half effects.
-We define the dispersion matrix $D$ of the model as
-\begin{equation}
-	D = (X^T X)^{-1}.
-\end{equation}
-The solution to eq. \ref{eq:least_square} can be computed as
-\begin{equation}
-	\hat\alpha = D X^{T} Y.
-\end{equation}
+\section{Results}\label{sec:results}
 
-%The results of the simulation versus the parameter values are shown in fig. \ref{fig:results_y}.
 
-%\begin{figure}
-%    \centering
-%    \includegraphics{images/epsFig}
-%    \caption{Insert caption}
-%\end{figure} 
 \subsection{Linear Model}
 First, we will discuss the results for the linear model.
 Fig. \ref{fig:effects_lin} shows the half effects for both the travel time and the jerk in blue. It can be seen that the influence of parameter A (coefficients $a_1$ and $b_1$) on both the travel time and the jerk is negligible compared to the other effects.

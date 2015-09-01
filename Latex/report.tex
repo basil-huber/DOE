@@ -5,6 +5,8 @@
 \usepackage{subcaption}
 \usepackage{tabularx}
 
+\usepackage[backend=bibtex8,style=ieee,url=false,doi=false,isbn=false]{biblatex} %,[backend=biber],style=ieee,style=IEEEtran
+
 % stuff for matlab2tikz
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
@@ -17,6 +19,7 @@
 \setlength{\figH}{0.15\textwidth}
 
 
+\addbibresource{IEEEabrv,biblio}
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 
@@ -45,5 +48,7 @@
 \input{results}
 
 \input{conclusion}
+
+\printbibliography[title=References]
 
 \end{document}

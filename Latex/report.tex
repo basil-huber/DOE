@@ -1,4 +1,4 @@
-\documentclass[paper=a4, twocolumn]{article}
+\documentclass[a4paper, twocolumn]{article}
 
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -16,25 +16,28 @@
 \setlength{\figW}{0.43\textwidth}
 \setlength{\figH}{0.15\textwidth}
 
-\usepackage{xr}	% for referencing between files
+
+\usepackage[runin]{abstract}
 
 \DeclareMathOperator*{\argmin}{arg\,min}
+
 
 \begin{document}
 
 \title{Title}
 \author{Nicolas Dousse\\Basil Huber }
-\date{August 2015}
+\date{September 2015}
 
 
 % abstract and title (for 1 column abstract)
-\twocolumn[\begin{@twocolumnfalse}
+\twocolumn[
 	\maketitle
 	\begin{abstract}
 	\input{abstract}
-	\end{abstract}
-\end{@twocolumnfalse}]
-
+	\vspace{1cm}			% space after abstract
+	\end{abstract}]
+ 
+ 
 
 \input{introduction}
 

@@ -1,4 +1,11 @@
 *.aux
 *.log
 *.synctex.gz
+*-blx.bib
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.run.xml
+.DS_Store
 Latex/report.pdf

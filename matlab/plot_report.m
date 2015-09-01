@@ -21,7 +21,7 @@ bar([1 3 4],m(4).resp(j).effects/m(i).resp(j).effects(1),width1/2,'FaceColor',[0
         set(gca, 'XTickLabel',labels_a)
         %title(strcat(m(i).name,' effect'),'FontWeight','bold','FontSize',16)
         xlabel('coefficients')
-        ylabel('ai/ao')
+        ylabel('a_i/a_0')
 print_plot_latex('effects_linear_time.tex')
 
 figure
@@ -33,7 +33,7 @@ bar([1 3 4],m(4).resp(j).effects/m(i).resp(j).effects(1),width1/2,'FaceColor',[0
         set(gca, 'XTickLabel',labels_b)
         %title(strcat(m(i).name,' effect'),'FontWeight','bold','FontSize',16)
         xlabel('coefficients')
-        ylabel('bi/bo')
+        ylabel('b_i/b_0')
 print_plot_latex('effects_linear_jerk.tex');
 
 
@@ -47,7 +47,7 @@ bar([1 3 4 7],m(5).resp(j).effects/m(5).resp(j).effects(1),width1/2,'FaceColor',
         set(gca, 'XTickLabel',labels_a)
         %title(strcat(m(i).name,' effect'),'FontWeight','bold','FontSize',16)
         xlabel('coefficients')
-        ylabel('ai/ao')
+        ylabel('a_i/a_0')
 print_plot_latex('effects_linear_interactions_time.tex');
 
 i = 2;
@@ -60,7 +60,7 @@ bar([1 3 4],m(4).resp(j).effects/m(4).resp(j).effects(1),width1/2,'FaceColor',[0
         set(gca, 'XTickLabel',labels_b)
         %title(strcat(m(i).name,' effect'),'FontWeight','bold','FontSize',16)
         xlabel('coefficients')
-        ylabel('bi/bo')
+        ylabel('b_i/b_0')
 print_plot_latex('effects_linear_interactions_jerk.tex');
 
 i = 3;
@@ -74,7 +74,7 @@ bar([1:5 7:10],m(6).resp(j).effects/m(6).resp(j).effects(1),width1/2,'FaceColor'
         set(gca, 'XTickLabel',labels_a)
         %title(strcat(m(i).name,' effect'),'FontWeight','bold','FontSize',16)
         xlabel('coefficients')
-        ylabel('ai/ao')
+        ylabel('a_i/a_0')
 print_plot_latex('effects_quadr_time.tex');
 
 i = 3;
@@ -88,7 +88,7 @@ bar([1:5 8:10],m(7).resp(j).effects/m(7).resp(j).effects(1),width1/2,'FaceColor'
         set(gca, 'XTickLabel',labels_b)
         %title(strcat(m(i).name,' effect'),'FontWeight','bold','FontSize',16)
         xlabel('coefficients')
-        ylabel('bi/bo')
+        ylabel('b_i/b_0')
 print_plot_latex('effects_quadr_jerk.tex');
 
 %% ----------------------
@@ -118,7 +118,6 @@ print_anova_latex(e.E_norm, e.resp(2).Y, m(3).coeffs, 'tables/anova_quadratic_je
 disp('quadratic model mod: travel time')
 print_anova_latex(e.E_norm, e.resp(2).Y, [  1 0 0; 2 0 0; 3 0 0; 1 2 0; 2 3 0; 1 1 0; 2 2 0; 3 3 0], 'tables/anova_quadratic_mod_jerk.tex')
 
-return
 %% ----------------------
 % plot data and interpolation for conclusion
 % linear model without parameter A for
@@ -130,8 +129,7 @@ print_plot_latex('fitLin_time.tex');
 
 plot_interpolation(m(4), e, 2)
 print_plot_latex('fitLin_jerk.tex');
-%return
-
+return
 %% ----------------------
 % plot data and interpolation
 % ----------------------

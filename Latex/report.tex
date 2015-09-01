@@ -1,9 +1,12 @@
-\documentclass[a4paper, twocolumn]{article}
+\documentclass[paper=a4, twocolumn]{article}
 
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{tabularx}
+\usepackage{xr}	% for referencing between files
+
+\usepackage[backend=bibtex8,style=ieee,url=false,doi=false,isbn=false]{biblatex} %,[backend=biber],style=ieee,style=IEEEtran
 
 % stuff for matlab2tikz
 \usepackage{pgfplots}
@@ -16,28 +19,25 @@
 \setlength{\figW}{0.43\textwidth}
 \setlength{\figH}{0.15\textwidth}
 
-
-\usepackage[runin]{abstract}
+\addbibresource{IEEEabrv,biblio}
 
 \DeclareMathOperator*{\argmin}{arg\,min}
-
 
 \begin{document}
 
 \title{Title}
 \author{Nicolas Dousse\\Basil Huber }
-\date{September 2015}
+\date{August 2015}
 
 
 % abstract and title (for 1 column abstract)
-\twocolumn[
+\twocolumn[\begin{@twocolumnfalse}
 	\maketitle
 	\begin{abstract}
 	\input{abstract}
-	\vspace{1cm}			% space after abstract
-	\end{abstract}]
- 
- 
+	\end{abstract}
+\end{@twocolumnfalse}]
+
 
 \input{introduction}
 
@@ -48,5 +48,7 @@
 \input{results}
 
 \input{conclusion}
+
+\printbibliography[title=References]
 
 \end{document}

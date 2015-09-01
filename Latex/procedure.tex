@@ -1,1 +1,119 @@
 \section{Procedure}
+
+In \cite{reynolds_flocks_1987}, Reynolds first proposed a set of three simple rules to model the way birds moves in flocks. These rules are
+\begin{enumerate}
+ \item ``\emph{Collision Avoidance}: avoid collisions with nearby flockmates''
+ \item ``\emph{Velocity Matching}: attempt to match velocity with nearby flockmates''
+ \item ``\emph{Flock Centering}: attempt to stay close to nearby flockmates''
+\end{enumerate}
+
+Since then, flocking has been studied a lot in the robotic world \cite{hauert_reynolds_2011, lindhe_flocking_2005, viragh_flocking_2013}. In \cite{olfati-saber_flocking_2006}, Olfati-Saber designed a convergent flocking algorithm based on Reynolds rules. In addition to the three above mentioned rules, it takes into consideration a common objective for the whole group by introducing a migration term. This migration term attracts the agents towards their goal. We use this work in our experiments and present it here below.  
+
+We assume that agents are influencing each other if they are closer than a distance $r$, thus we can define the set of spatial neighbor by
+\begin{equation}
+N_i=\{j:\|q_j-q_i\|<r\}
+\label{eq:Ni}
+\end{equation}
+
+Each member of the flock is considered as an $\alpha$-agent. The goal of the flock is to create a formation where each agent is at a distant $d$ to its closest neighbors
+\begin{equation}
+\begin{array}{ll}
+\|q_j-q_i\|=d & \forall j \in N_i
+\end{array}
+\label{eq:lattice}
+\end{equation}
+
+\subsection{Mathematical definitions}
+
+We present here the mathematical tools as well as different functions used in this report and in \cite{olfati-saber_flocking_2006}. 
+
+First, a $\sigma$\emph{-norm} is defined and replaces the standard euclidean norm which is non-differentiable at $z=0$:
+\begin{equation}
+\|z\|_{\sigma}=\frac{1}{\epsilon}\big[\sqrt{1+\epsilon\|z\|^2}-1\big]
+\label{eq:sigmanorm}
+\end{equation}
+and the corresponding gradient $\sigma_{\epsilon}(z)=\nabla\|z\|_{\sigma}$:
+\begin{equation}
+\sigma_{\epsilon}(z)=\frac{z}{1+\epsilon\|z\|_{\sigma}}
+\label{eq:sigmagrad}
+\end{equation}
+where $\epsilon>0$. 
+
+Then, we define a bump function, a function that varies continuously between 0 and 1 and is null above 1:
+\begin{equation}
+\rho_{\delta}(z)=
+\left\lbrace
+\begin{array}{lll}
+1 & z\in[0,\delta)\\
+\frac{1}{2}\Big[1+\text{cos}\big(\pi\frac{z-\delta}{1-\delta}\big)\Big] & z\in[\delta,1]\\
+0 & \mbox{otherwise}
+\end{array}\right.
+\label{eq:bump}
+\end{equation}
+with parameter $\delta\in[0,1]$.
+
+Finally, a action function is defined as 
+\begin{align}
+&\phi_{\alpha}(z)=\rho_{\delta}(z/r_{\alpha})\phi(z-d_{\alpha}) \nonumber \\
+&\quad\phi(z)=\frac{a+b}{2}\frac{z+c}{\sqrt{1+(z+c)^2}}+\frac{a-b}{2}
+\label{eq:phi}
+\end{align}
+where $0<a\le b$, $c=(b-a)/\sqrt{4ab}$. The integral of this function has a minimum at $z=d_{\alpha}=\|d\|_{\sigma}$ and a finite cut-off at $z=r_{\alpha}=\|r\|_{\sigma}$. 
+
+\subsection{Flocking rules}
+
+Based on the mathematical definition, we can derive the expression of Reynolds rules. 
+
+The \emph{Flock Centering rule} is composed of two terms: one attractive and one repulsive term. This term are also called cohesion and separation terms. The cohesion term tend to move the agent towards the virtual center of mass of its neighbor. The separation term is responsible for avoiding collisions between neighbors and pushing them apart if they are too close one from each other.  These two terms are expressed together by the action function (Eq.~\ref{eq:phi}.
+\begin{equation}
+u_i^{mp}=\sum_{j\in N_i}{\phi_{\alpha}(\|q_j-q_i\|_{\sigma})}\vec{n}_{ij}
+\label{eq:motionplanning}
+\end{equation}
+where $\phi_{\alpha}$ is the action function and $\vec{n}_{ij}=\sigma_{\epsilon}(q_j-q_i)$ is a vector connecting $q_i$ to $q_j$. 
+
+The \emph{Velocity Matching} rule tends to align the velocity of the agent to the velocity of its neighbors. It is defined as 
+\begin{equation}
+u_i^{vm}=\sum_{j\in N_i}{a_{ij}(p_j-p_i)}
+\label{eq:velocitymatching}
+\end{equation}
+where $p_i$ is the velocity of agent $i$ and the coefficients $a_{ij}=\rho_{\delta}(\|q_j-q_i\|_{\sigma}/r_{\sigma})$ are computed by the the bump function defined in Eq.~\ref{eq:bump}.
+
+
+The \emph{Migration term} attracts the agent towards its goal and is defined by
+\begin{equation}
+u_i^{\gamma}=-c_1(q_i-q_g)-c_2\cdot p_i
+\label{eq:migration}
+\end{equation}  
+where $c_1,c_2>0$ are constant, $q_i$ is the position of the agent and $q_g$ is the goal position. In the original formulation of this strategy, it was assumed that all agents had a common goal. In our work with personal aerial vehicles, the goal position is different for each user and therefore, the goal position can/is different for each agent. 
+
+The final control input $u_i$ is composed of the sum of three term defined here above:
+\begin{equation}
+u_i=u_i^{mp}+u_i^{vm}+u_i^{\gamma}
+\label{eq:input}
+\end{equation}
+
+\subsection{Optimization parameters}
+
+The action function (Eq.\ref{eq:phi}) defines how agents interact with each other. The aim is too address the influence of the parameters of the action function on the objectives. The function has two parameters, namely $a$ and $b$ (note that $c$ is fully defined by $a$ and $b$). The individual effect of each parameter on the shape of the action function can be seen on Fig.\ref{fig:effects_actionCurve}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+	    \setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}
+	    \input{images/actionCurve_1.tex}
+	    \caption{Influence of parameter d}
+	\end{subfigure}
+    \begin{subfigure}[b]{0.5\textwidth}
+		\setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}	
+	    \input{images/actionCurve_2.tex}
+	    \caption{Influence of parameter a}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.5\textwidth}
+		\setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}	
+	    \input{images/actionCurve_3.tex}
+	    \caption{Influence of parameter b}
+	\end{subfigure}
+
+    \caption{Influence of the parameters on the action function}
+    \label{fig:effects_actionCurve}
+\end{figure} 

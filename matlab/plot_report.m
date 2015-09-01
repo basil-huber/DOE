@@ -67,7 +67,7 @@ if(0)
     j = 1;
     figure
     bar([1:m(i).coeff_count],m(i).resp(j).effects/m(i).resp(j).effects(1),width1,'FaceColor',[0.2,0.2,0.5])
-            set(gca,'XTick',[0:m(i).coeff_count]);
+            set(gca,'XTick',[1:m(i).coeff_count]);
     hold on
     bar([1:5 7:10],m(6).resp(j).effects/m(6).resp(j).effects(1),width1/2,'FaceColor',[0,0.7,0.7])
             set(gca,'XTick',[1:m(i).coeff_count]);
@@ -84,7 +84,7 @@ if(0)
             set(gca,'XTick',[1:m(i).coeff_count]);
     hold on
     bar([1:5 8:10],m(7).resp(j).effects/m(7).resp(j).effects(1),width1/2,'FaceColor',[0,0.7,0.7])
-            set(gca,'XTick',[0:m(i).coeff_count]);
+            set(gca,'XTick',[1:m(i).coeff_count]);
             set(gca, 'XTickLabel',labels_b)
             %title(strcat(m(i).name,' effect'),'FontWeight','bold','FontSize',16)
             xlabel('coefficients')
@@ -123,7 +123,7 @@ print_anova_latex(e.E_norm, e.resp(1).Y, [  1 0 0; 2 0 0; 3 0 0; 1 2 0; 2 3 0; 1
 fprintf(fid,'\\arrayrulecolor{gray}\\hline\n');
 print_anova_latex(e.E_norm, e.resp(2).Y, m(3).coeffs, fid, 'Jerk', '')
 fprintf(fid,'\\arrayrulecolor{gray}\\hline\n');
-print_anova_latex(e.E_norm, e.resp(2).Y, [  1 0 0; 2 0 0; 3 0 0; 1 2 0; 2 3 0; 1 1 0; 2 2 0; 3 3 0], fid, 'Jerk','^1')
+print_anova_latex(e.E_norm, e.resp(2).Y, [  1 0 0; 2 0 0; 3 0 0; 1 2 0; 2 3 0; 1 1 0; 2 2 0; 3 3 0], fid, 'Jerk','^2')
 
 %% ----------------------
 % plot data and interpolation for conclusion

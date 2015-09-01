@@ -7,8 +7,8 @@ function print_anova_latex(E, result, coeffs, fileID, resp_name, suffix)
      %fprintf(fileID,'%10s\t & %-8s\t & %-8s\t & %-8s\t & %-8s\t & %-8s \\\\\\hline\n','Source','SS','df','MS','F','p')
      
     % print data
-    fprintf(fileID,'%10s\t & $%10s%10s\t$ & %-3.4g\t & %-3.4g\t & %-3.4g\t & %-3.4g\t & %-3.2g\\\\\n', resp_name, '\alpha', suffix , SS(1),DL(1),MS(1),F(1),p(1));
-    fprintf(fileID,'%10s\t & $%10s%10s\t$ & %-3.4g\t & %-3.4g\t & %-3.4g \\\\ \n','','R' ,suffix ,SS(2),DL(2),MS(2));
+    fprintf(fileID,'%10s\t & $%10s%10s\t$ & %-3.3g\t & %-3.3g\t & %-3.3g\t & %-3.3g\t & %-3.2e\\\\\n', resp_name, '\alpha', suffix , SS(1),DL(1),MS(1),F(1),p(1));
+    fprintf(fileID,'%10s\t & $%10s%10s\t$ & %-3.3g\t & %-3.3g\t & %-3.3g \\\\ \n','','R' ,suffix ,SS(2),DL(2),MS(2));
     %fprintf(1,'%10s\t  %-6.3g\t  %-6.3g\n\n','Mesure',SS(3),DL(3));
 
      

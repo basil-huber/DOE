@@ -235,20 +235,22 @@ RealVar(:,1)=(dBB2(:,1)+1)/2*(xlimits(2)-xlimits(1))+xlimits(1);
 %%
 figure
 hold on
-plot3(dBB2(:,1),dBB2(:,2),dBB2(:,3),'bo','MarkerSize',12)
-plot3(aNorm,dNorm,bNorm,'r*','MarkerSize',12)
+plot3(dBB(:,1),dBB(:,2),dBB(:,3),'bo');%,'MarkerSize',12)
+plot3(aNorm,dNorm,bNorm,'r*');%,'MarkerSize',12)
 %plot3(dBB(:,1),dBB(:,2),dBB(:,3),'r*','MarkerSize',12)
 plot3(sq1(:,1),sq1(:,2),sq1(:,3),'g')
 plot3(sq2(:,1),sq2(:,2),sq2(:,3),'g')
 plot3(sq3(:,1),sq3(:,2),sq3(:,3),'g')
 plot3(sq4(:,1),sq4(:,2),sq4(:,3),'g')
 plot3(sq5(:,1),sq5(:,2),sq5(:,3),'g')
-xlabel('a')
-ylabel('d')
-zlabel('b')
+xlabel('x_1')
+ylabel('x_3')
+zlabel('x_2')
 axis([-1.2 1.2 -1.2 1.2 -1.2 1.2])
 hold off
 
+pause
+print_plot_latex('box_behnken.tex')
 
 e = struct();
 e.E_nat = matrixExperiments(:,1:3);

@@ -1,0 +1,107 @@
+% This file was created by matlab2tikz.
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=0.951\figW,
+height=\figH,
+at={(0\figW,0\figH)},
+scale only axis,
+every outer x axis line/.append style={black},
+every x tick label/.append style={font=\color{black}},
+xmin=-1.2,
+xmax=1.2,
+tick align=outside,
+xlabel={$\text{x}_\text{1}$},
+every outer y axis line/.append style={black},
+every y tick label/.append style={font=\color{black}},
+ymin=-1.2,
+ymax=1.2,
+ylabel={$\text{x}_\text{3}$},
+every outer z axis line/.append style={black},
+every z tick label/.append style={font=\color{black}},
+zmin=-1.2,
+zmax=1.2,
+zlabel={$\text{x}_\text{2}$},
+view={-24}{20},
+axis background/.style={fill=white},
+axis x line*=bottom,
+axis y line*=left,
+axis z line*=left,
+xlabel shift={-4pt},
+ylabel shift={-4pt}
+]
+\addplot3 [color=blue,only marks,mark=o,mark options={solid}]
+ table[row sep=crcr] {%
+-1	-1	0\\
+-1	1	0\\
+1	-1	0\\
+1	1	0\\
+-1	0	-1\\
+-1	0	1\\
+1	0	-1\\
+1	0	1\\
+0	-1	-1\\
+0	-1	1\\
+0	1	-1\\
+0	1	1\\
+0	0	0\\
+};
+ \addplot3 [color=red,only marks,mark=asterisk,mark options={solid}]
+ table[row sep=crcr] {%
+-1	-1	0\\
+-1	1	0\\
+0.333333333333333	-1	0\\
+0.333333333333333	1	0\\
+-1	0	-1\\
+-1	0	1\\
+-0.333333333333333	0	-1\\
+1	0	1\\
+-0.666666666666667	-1	-1\\
+0	-1	1\\
+-0.666666666666667	1	-1\\
+-0.278333333333333	0	0.165\\
+0	1	1\\
+};
+ \addplot3 [color=green,solid]
+ table[row sep=crcr] {%
+1	1	1\\
+1	1	-1\\
+1	-1	-1\\
+1	-1	1\\
+1	1	1\\
+};
+ \addplot3 [color=green,solid]
+ table[row sep=crcr] {%
+1	1	1\\
+-1	1	1\\
+-1	-1	1\\
+1	-1	1\\
+1	1	1\\
+};
+ \addplot3 [color=green,solid]
+ table[row sep=crcr] {%
+-1	1	1\\
+-1	1	-1\\
+-1	-1	-1\\
+-1	-1	1\\
+-1	1	1\\
+};
+ \addplot3 [color=green,solid]
+ table[row sep=crcr] {%
+1	1	-1\\
+-1	1	-1\\
+-1	-1	-1\\
+1	-1	-1\\
+1	1	-1\\
+};
+ \addplot3 [color=green,solid]
+ table[row sep=crcr] {%
+-0.333333333333333	-1	-1\\
+-0.333333333333333	1	-1\\
+1	1	1\\
+1	-1	1\\
+-0.333333333333333	-1	-1\\
+};
+ \end{axis}
+\end{tikzpicture}%

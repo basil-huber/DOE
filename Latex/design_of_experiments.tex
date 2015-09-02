@@ -1,10 +1,12 @@
 \section{Design of Experiments}
 
 We design the experiment to efficiently determine the influence of the  parameter $a$, $b$, and $d$ on the mean travel time and the mean jerk experienced during the journey.
+
+\subsection{Choosing a Model}
 The complex nature of the problem does not allow to make assumptions on the model underlying the experiments. We therefore choose to investigate several models. We begin with a simple linear model of the form
 \begin{subequations}\label{eq:model_lin}
 \begin{align}
-	y_a &= a_0 + \displaystyle\sum_{i=1}^{3} a_i x_i + \varepsilon_a \quad text{and}\\ 
+	y_a &= a_0 + \displaystyle\sum_{i=1}^{3} a_i x_i + \varepsilon_a \quad \text{and}\\ 
 	y_b &= b_0 + \displaystyle\sum_{i=1}^{3} b_i x_i + \varepsilon_b,
 \end{align}
 \end{subequations}
@@ -26,34 +28,78 @@ As for the linear model, we found that the influence of parameter A and it's int
 which has additionally the quadratic factors $a_{ii}$.
 Due to the limited number of experiments, we choose not to test higher order models.
 
-We call $X$ the model matrix of the matrix. Each row contains the values taken by the factors and their products (if any) during one run of the experiment:
+\subsection{Choosing the Matrix of Experiments}
+The matrix of experiments $E$ contains the levels, i.e., the values taken by the factors, normalized between $-1$ and $1$. Each row of $E$ corresponds to an experiment and each column to a factor. The choice of the matrix of experiments is crucial for an efficient estimation of the effects. While a high number of experiments $N$ yields a more accurate fit, experiments with flying platforms are costly in terms of time. The limits of the levels shown in tbl.~\ref{tbl:levels} where determined in preliminary experiment.
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{l r r r}
+	 & $x_1$ (A) & $x_2$ (B) & $x_3$ (D) \\\hline
+	min & 1 & 5 & 800\\
+	max & 13 & 13 & 1400 \\
+	\end{tabular}
+	\caption{Maximal and minimal levels for each factor, found in perliminary experiments}\label{tbl:levels}
+\end{table}
+The add\begin{figure}[h]
+    \centering
+	\setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}
+	\setlength{\figH}{0.25\textwidth}
+	\input{images/box_behnken.tex}
+    \caption{Chosen levels for the experiment: Original Box-Behnken design (in blue) and adjusted design (in red);}\label{fig:design}
+\end{figure} 
+
+itional constraint $ x_1 \le x_2 $ is introduced by eq.~\ref{eq:phi}. To well cover the central values, we choose a Box-Behnken design~\cite{box_behnken} as shown in fig.~\ref{fig:design}. We adjusted the values to fit our constraint by moving the points to the center of the sides of the truncated cube. The central point was moved to the center of gravity of the truncated cube. This results in the following matrix of experiments:
 \begin{equation}
-	X = \begin{pmatrix}
-	1 & x_{11} & x_{12} & \dots & x_{1n} \\
-	1 & x_{21} & x_{22} & \dots & x_{2n} \\
-	\vdots & \vdots & \vdots & \ddots & \vdots \\
-	1 & x_{N1} & x_{N2} & \dots & x_{Nn}
-	\end{pmatrix},
+E = \begin{pmatrix}
+		x_{11}  &  x_{12}  & x_{13} \\
+		x_{21}  &  x_{22}  & x_{23} \\
+		\vdots & \vdots & \vdots \\
+		x_{N1} & x_{N2} & x_{N3}
+		\end{pmatrix} = \begin{pmatrix}
+		-1  &  0  & -1 \\
+		-1  &  0  & -1 \\
+		\nicefrac{1}{3} &	0	& -1 \\
+		\nicefrac{1}{3} &	0	& 1  \\
+		-1	&	-1	& 0 \\
+		-1	&	1	& 0 \\
+		-\nicefrac{1}{3} &	-1	& 0 \\
+		1	  & -1  & 0 \\
+		-\nicefrac{2}{3} &	-1	& -1 \\
+		0	  &  1	& -1 \\
+		-\nicefrac{2}{3} &	-1	& 1 \\
+		-0.28 & 0.17 & 0 \\
+		0 	& 1 	& 1 
+		\end{pmatrix}
 \end{equation}
-where $x_{k1}$ is the value taken by the $i$th factor during the $k$ experiment or a product of two factors. The column vectors $Y_a$ and $Y_b$ contain the response in travel time and jerk where each element corresponds to the response to one run of the experiment.
+
+
+
+\subsection{Estimating the effects}
+We call $X$ the model matrix of the matrix. Each row contains the levels of the factors and their products (if any) for one run of the experiment. For the quadratic model, $X$ takes the following form:
+\begin{equation}
+	\begin{pmatrix}
+	1 & x_{11} & x_{12} & x_{13} & x_{11}^2 & x_{11} x_{12} & \cdots & x_{13}^2 \\
+	1 & x_{21} & x_{22} & x_{23} & x_{21}^2 & x_{21} x_{22} & \cdots & x_{23}^2 \\
+	 \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \ddots & \vdots\\
+	1 & x_{N1} & x_{N2} & x_{N3} & x_{N1}^2 & x_{N1} x_{N2} & \cdots & x_{N3}^2 \\
+	\end{pmatrix}
+\end{equation}
+
+The column vectors $Y_a$ and $Y_b$ contain the response in travel time and jerk where each element corresponds to the response to one run of the experiment.
 Eq.~\ref{eq:model_lin}~to~\ref{eq:model_quadr} can then be formulated for all experiments as
 \begin{equation}
  Y = X \hat{\alpha} + R = \hat{Y} + R,
 \end{equation}
 where $\hat{\alpha}$ is the column vector containing the estimated effects, $\hat{Y}$ are the estimated responses and $R$ is the residue column vector.
-\subsection{Estimating the effects}
+
 We estimate the effects (coefficients of the model) by minimizing the the residue in the sense of least square as expressed by eq. \ref{eq:least_square}.
 \begin{equation}\label{eq:least_square}
 	\hat\alpha =  \argmin_{\alpha}(\|Y - \hat{Y}\|^2) = \argmin_{\alpha}(\|R\|^2).
 \end{equation}
-We define the dispersion matrix $D$ of the model as
-\begin{equation}
-	D = (X^T X)^{-1}.
-\end{equation}
 The solution to eq. \ref{eq:least_square} can be computed as
 \begin{equation}
-	\hat\alpha = D X^{T} Y.
+	\hat\alpha = (X^T X)^{-1} X^{T} Y.
 \end{equation}
+
 
 
 \subsection{Analysis of Variance}

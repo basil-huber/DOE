@@ -61,12 +61,11 @@ m(3) = setup_model(m(1), coeffs(1:end,:), e, 'Quadratic');   % quadratic model w
 % m(i).resp(j).sigma(k):       standard deviation for each parameter k
 % m(i).resp(j).CI(k):          interval of confidence for each parameter k
 
-%% add remove factor 1
-disp('here')
+%% add remove parameter a
 coeffs =   [  2 0;     % linear coeffs
               3 0];
 m(4) = setup_model(m(1), coeffs, e, 'Linear mod');    % linear model w\   interactions
-disp('fertig')
+
 coeffs =   [  2 0 0;     % linear coeffs
               3 0 0;
               2 3 0];    % linear interactions
@@ -98,49 +97,6 @@ m(7) = setup_model(m(1), coeffs, e, 'Quadratic mod');    % quadratic model with 
 
 %% analyze experiments
 
-j = 1
-
-
-% hack for testing
-% ii = 1
-% alpha_ref = rand(size(m(ii).X,2),1);
-% e.resp(j).Y = m(ii).X * alpha_ref;
-% e.resp(j).Y = e.resp(j).Y .* (ones(e.N,1) + 100 *rand(e.N,1));
-
-
 for i = 1:length(m)
     m(i) = analyze_experiment(m(i), e);
-end
-
-%% plotting
-
-
-
-
-
-% -------------------------------------------------
-%  Plot effects (bar plot and plot with error bars)
-% -------------------------------------------------
-
-plot_effects(m(1:3), e, j);
-
-plot_effects(m(4:6), e, j);
-
-
-for i = 1:1
-    [E,SS,DL,MS,F,p]= anova_doe(e.E_norm,e.resp(j).Y,m(i).coeffs,1);
-end
-
- %[E,SS,DL,MS,F,p]= anova_doe(e.E_norm(:,[1 2]),e.resp(1).Y,[1 0; 2 0],1);
- %[E,SS,DL,MS,F,p]= anova_doe(e.E_norm(:,[1 2]),e.resp(2).Y,[1 0; 2 0],1);
-
-% figure(1)
-% for jj = 1:3
-%     subplot(3,1,jj)
-%     hold on
-%     plot([1:length(alpha_ref)], alpha_ref, 'r*')
-% end
-
-for i = 1:3%length(m)
-    plot_interpolation(m(i), e, j)
 end

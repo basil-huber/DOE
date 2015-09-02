@@ -5,7 +5,7 @@ addpath('matlab2tikz')
 %% -----------------------------------------
 %        print effects
 % ----------------------------------------
-if(0)
+if(1)
     y_lim_effects = [-3 3];
     i = 1;
     j = 1;
@@ -130,7 +130,7 @@ print_anova_latex(e.E_norm, e.resp(2).Y, [  1 0 0; 2 0 0; 3 0 0; 1 2 0; 2 3 0; 1
 % linear model without parameter A for
 % ----------------------
 
-if(0)
+if(1)
     plot_interpolation(m(4), e, 1)
     ylim([0 3])
     print_plot_latex('fitLin_time.tex');
@@ -138,56 +138,9 @@ if(0)
     plot_interpolation(m(4), e, 2)
     print_plot_latex('fitLin_jerk.tex');
 end
-return
-%% ----------------------
-% plot data and interpolation
-% ----------------------
 
-figure
-title('Travel time')
-xlabel('x_1 (Parameter A)')
-ylabel('x_2 (Parameter B)')
-zlabel('travel time')
-hold on
+%% -----------------------
+% plot design of experiments
+% -------------------------
 
-p1 = 1;
-p2 = 2;
-p3 = 3;
-legend_str = cell(length(e.param(p3).unique),1);
-% plot experimental values
 
-for j = 1:length(e.param(p3).unique)
-    x3 = e.param(p3).unique(j);     % value of the 3rd parameter
-    indi = e.E_norm(:,p3) == x3;     % find all experiments with 3rd parameter == x3
-    plot3(e.E_nat(indi,p1), e.E_nat(indi,p2), e.resp(1).Y(indi), [colorList{j} '*'],'MarkerSize',5);
-    legend_str{j} = [ e.param(p3).name ' = '  num2str(x3)];
-    hold on
-end
-
-for j = 1:length(e.param(p3).unique)
-    x3 = e.param(p3).unique(j);     % value of the 3rd parameter
-    indi = e.E_norm(:,p3) == x3;     % find all experiments with 3rd parameter == x3
-    plot3(e.E_nat(indi,p1), e.E_nat(indi,p2), e.resp(2).Y(indi), [colorList{j} 'o'],'MarkerSize',5);
-    legend_str{j} = [ e.param(p3).name ' = '  num2str(x3)];
-    hold on
-end
-legend(legend_str)
-x11 = min(e.E_nat(:,1));
-x12 = max(e.E_nat(:,1));
-x21 = min(e.E_nat(:,2));
-x22 = max(e.E_nat(:,2));
-plot3([x11; x11; x12; x12; x11],[x21; x22; x22; x21; x21],zeros(5,1))
-grid on
-%pause
-%print -depsc epsFig
-
-%close all
-figure
-plot_interpolation(m(1), e, 1)
-pause
-print_plot_latex('interpol_lin1.tex');
-figure
-plot_interpolation(m(1), e, 2)
-print -depsc interpol_lin1
-pause
-print -depsc interpol_lin2

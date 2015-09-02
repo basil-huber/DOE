@@ -9,7 +9,7 @@ We selected a bio-inspired collision avoidance strategy. This strategy is based 
 
 Since the initial work of Reynolds, flocking has been studied a lot in the robotic world \cite{hauert_reynolds_2011, lindhe_flocking_2005, viragh_flocking_2013}. In \cite{olfati-saber_flocking_2006}, Olfati-Saber designed a convergent flocking algorithm based on Reynolds rules. In addition to the three above mentioned rules, it takes into consideration a common objective for the whole group by introducing a migration term. This migration term attracts the agents towards their goal. We based our experiments on the work of Olfati-Saber and present it here below. 
 
-We assume that agents are influencing each other if they are closer than a distance $r$, thus we can define the set of spatial neighbor by
+We assume that agents are influencing each other if they are closer than a distance $r$, thus we can define the set of spatial neighbors by
 \begin{equation}
 N_i=\{j:\|q_j-q_i\|<r\}
 \label{eq:Ni}

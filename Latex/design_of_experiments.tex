@@ -1,6 +1,6 @@
 \section{Design of Experiments}
 
-We design the experiment to efficiently determine the influence of the  parameter $a$, $b$, and $d$ on the mean travel time and the mean jerk experienced during the journey.
+We design the experiment to efficiently determine the influence of the  parameters $a$, $b$, and $d$ on the mean travel time and the mean jerk experienced during the journey.
 
 \subsection{Choosing a Model}
 The complex nature of the problem does not allow to make assumptions on the model underlying the experiments. We therefore choose to investigate several models. We begin with a simple linear model of the form
@@ -10,15 +10,15 @@ The complex nature of the problem does not allow to make assumptions on the mode
 	y_b &= b_0 + \displaystyle\sum_{i=1}^{3} b_i x_i + \varepsilon_b,
 \end{align}
 \end{subequations}
-where $y_a$ and $y_b$ are the responses (mean travel time and mean jerk), $a_i$ and $b_i$ are the effects of the $i$th parameter on the travel time and the jerk respectively, $x_1$, $x_2$ and $x_3$ are the values taken by the parameters A, B and D respectively. Since the results of the analysis suggest that the influence of parameter A on the travel time is negligible (cf. section~\ref{sec:results}), we adjust our model by omitting this parameter.
-The nature of the algorithm suggest that interactions could play an important role. Hence, we will also investigate a linear model allowing for interactions between the parameters as described in eq. \ref{eq:model_inter}.
+where $y_a$ and $y_b$ are the responses (mean travel time and mean jerk), $a_i$ and $b_i$ are the effects of the $i$th parameter on the travel time and the jerk respectively, $x_1$, $x_2$ and $x_3$ are the values taken by the parameters $a$, $b$ and $d$ respectively. Since the results of the analysis suggest that the influence of parameter $a$ on the travel time is negligible (cf. section~\ref{sec:results}), we adjust our model by omitting this parameter.
+The nature of the algorithm suggest that interactions could play an important role. Hence, we will also investigate a linear model allowing for interactions between the parameters as described in eq.~\ref{eq:model_inter}.
 \begin{subequations}\label{eq:model_inter}
 \begin{align}
 	y_a &= a_0 + \displaystyle\sum_{i=1}^{3} a_i x_i + \displaystyle\sum_{i,j=1, i \neq j}^{3} a_{ij} x_i x_j + \varepsilon_a \quad \text{and}\\ 
 	y_b &= b_0 + \displaystyle\sum_{i=1}^{3} b_i x_i + \displaystyle\sum_{i,j=1, i \neq j}^{3} b_{ij} x_i x_j + \varepsilon_b
 \end{align}
 \end{subequations}
-As for the linear model, we found that the influence of parameter A and it's interactions is negligible and omit the parameter for the travel time. We also test a quadratic model with the following equations:
+As for the linear model, we found that the influence of parameter $a$ and it's interactions is negligible and omit the parameter for the travel time. We also test a quadratic model with the following equations:
 \begin{subequations}\label{eq:model_quadr}
 \begin{align}
 	y_a &= a_0 + \displaystyle\sum_{i=1}^{3} a_i x_i + \displaystyle\sum_{i,j=1}^{3} a_{ij} x_i x_j + \varepsilon_a \quad \text{and}\\ 
@@ -29,7 +29,7 @@ which has additionally the quadratic factors $a_{ii}$.
 Due to the limited number of experiments, we choose not to test higher order models.
 
 \subsection{Choosing the Matrix of Experiments}
-The matrix of experiments $E$ contains the levels, i.e., the values taken by the factors, normalized between $-1$ and $1$. Each row of $E$ corresponds to an experiment and each column to a factor. The choice of the matrix of experiments is crucial for an efficient estimation of the effects. While a high number of experiments $N$ yields a more accurate fit, experiments with flying platforms are costly in terms of time. The limits of the levels shown in tbl.~\ref{tbl:levels} where determined in preliminary experiment.
+The matrix of experiments $E$ contains the levels, i.e., the values taken by the factors, normalized between $-1$ and $1$. Each row of $E$ corresponds to an experiment and each column to a factor. The choice of the matrix of experiments is crucial for an efficient estimation of the effects. While a high number of experiments $N$ yields a more accurate fit, experiments with flying platforms are costly in terms of time. The limits of the levels shown in tbl.~\ref{tbl:levels} were determined in preliminary experiment.
 \begin{table}[h!]
 	\centering
 	\begin{tabular}{l r r r}
@@ -39,7 +39,7 @@ The matrix of experiments $E$ contains the levels, i.e., the values taken by the
 	\end{tabular}
 	\caption{Maximal and minimal levels for each factor, found in perliminary experiments}\label{tbl:levels}
 \end{table}
-The add\begin{figure}[h]
+\begin{figure}[h]
     \centering
 	\setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}
 	\setlength{\figH}{0.25\textwidth}
@@ -47,7 +47,7 @@ The add\begin{figure}[h]
     \caption{Chosen levels for the experiment: Original Box-Behnken design (in blue) and adjusted design (in red);}\label{fig:design}
 \end{figure} 
 
-itional constraint $ x_1 \le x_2 $ is introduced by eq.~\ref{eq:phi}. To well cover the central values, we choose a Box-Behnken design~\cite{box_behnken} as shown in fig.~\ref{fig:design}. We adjusted the values to fit our constraint by moving the points to the center of the sides of the truncated cube. The central point was moved to the center of gravity of the truncated cube. This results in the following matrix of experiments:
+The additional constraint $ x_1 \le x_2 $ is introduced by eq.~\ref{eq:phi}. To well cover the central values, we choose a Box-Behnken design~\cite{box_behnken} as shown in fig.~\ref{fig:design}. We adjust the values to fit our constraint by moving the points to the center of the sides of the truncated cube. The central point was moved to the center of gravity of the truncated cube. This results in the following matrix of experiments:
 \begin{equation}
 E = \begin{pmatrix}
 		x_{11}  &  x_{12}  & x_{13} \\
@@ -74,7 +74,7 @@ E = \begin{pmatrix}
 
 
 \subsection{Estimating the effects}
-We call $X$ the model matrix of the matrix. Each row contains the levels of the factors and their products (if any) for one run of the experiment. For the quadratic model, $X$ takes the following form:
+We call $X$ the matrix of the matrix. Each row contains the levels of the factors and their products (if any) for one run of the experiment. For the quadratic model, $X$ takes the following form:
 \begin{equation}
 	\begin{pmatrix}
 	1 & x_{11} & x_{12} & x_{13} & x_{11}^2 & x_{11} x_{12} & \cdots & x_{13}^2 \\
@@ -114,8 +114,8 @@ for the effects and as
 The mean of squares ($\text{MS}$) as the distribution of the sum of squares ($\text{SS}$) over the degree's of freedom $\text{df}$:
 \begin{equation}
 	\text{MS}_\text{eff} = \frac{\text{SS}_\text{eff}}{\text{df}_\text{eff}} \quad \text{and} \quad 
-	\text{MS}_\text{res} = \frac{\text{SS}_\text{res}}{\text{df}_\text{res}}
-\end{equation},
+	\text{MS}_\text{res} = \frac{\text{SS}_\text{res}}{\text{df}_\text{res}},
+\end{equation}
 where the degrees of freedom of the effects $\text{df}_\text{eff}$ is the number of effects including the constant and the degrees of freedom of the residue $\text{df}_\text{res}$ equals the number of experiment $N$ minus the degrees of freedom of the effects:
 \begin{equation}
 \text{df}_\text{res} = N - \text{df}_\text{eff}.
@@ -125,7 +125,7 @@ We define Fisher's coefficient $F$ as follows:
 F = \frac{\text{MS}_\text{eff}}{\text{MS}_\text{res}}.
 \end{equation}
 
-Using Fisher's coefficient, we can express the probability of this ratio occurring at random $p$ as the cumulative distribution function at $F$ for the degrees of freedom $\text{df}_\text{eff}$ and $\text{df}_\text{res}$:
+Using Fisher's coefficient, we can express the probability $p$ of this ratio occurring at random as the cumulative distribution function at $F$ for the degrees of freedom $\text{df}_\text{eff}$ and $\text{df}_\text{res}$:
 \begin{equation}
 	p = \int_{-\inf}^F f(t,\text{df}_\text{eff},\text{df}_\text{res}) \mathrm{d}t,
 \end{equation}

@@ -1,21 +1,22 @@
 \section{Procedure}
 
-In \cite{reynolds_flocks_1987}, Reynolds first proposed a set of three simple rules to model the way birds moves in flocks. These rules are
+We selected a bio-inspired collision avoidance strategy. This strategy is based on flocking behavior of birds. Indeed, while flocking, birds are able to move without collision in a very dense environment. In \cite{reynolds_flocks_1987}, Reynolds first proposed a set of three simple rules to model the way birds moves in flocks. These rules are
 \begin{enumerate}
  \item ``\emph{Collision Avoidance}: avoid collisions with nearby flockmates''
  \item ``\emph{Velocity Matching}: attempt to match velocity with nearby flockmates''
  \item ``\emph{Flock Centering}: attempt to stay close to nearby flockmates''
 \end{enumerate}
 
-Since then, flocking has been studied a lot in the robotic world \cite{hauert_reynolds_2011, lindhe_flocking_2005, viragh_flocking_2013}. In \cite{olfati-saber_flocking_2006}, Olfati-Saber designed a convergent flocking algorithm based on Reynolds rules. In addition to the three above mentioned rules, it takes into consideration a common objective for the whole group by introducing a migration term. This migration term attracts the agents towards their goal. We use this work in our experiments and present it here below.  
+Since the initial work of Reynolds, flocking has been studied a lot in the robotic world \cite{hauert_reynolds_2011, lindhe_flocking_2005, viragh_flocking_2013}. In \cite{olfati-saber_flocking_2006}, Olfati-Saber designed a convergent flocking algorithm based on Reynolds rules. In addition to the three above mentioned rules, it takes into consideration a common objective for the whole group by introducing a migration term. This migration term attracts the agents towards their goal. We based our experiments on the work of Olfati-Saber and present it here below. 
 
 We assume that agents are influencing each other if they are closer than a distance $r$, thus we can define the set of spatial neighbor by
 \begin{equation}
 N_i=\{j:\|q_j-q_i\|<r\}
 \label{eq:Ni}
 \end{equation}
-
-Each member of the flock is considered as an $\alpha$-agent. The goal of the flock is to create a formation where each agent is at a distant $d$ to its closest neighbors
+where $q_i$ is the position of agent $i$. 
+%Each member of the flock is considered as an $\alpha$-agent. 
+The goal of the flock is to create a formation where each agent is at a distant $d$ to its closest neighbors
 \begin{equation}
 \begin{array}{ll}
 \|q_j-q_i\|=d & \forall j \in N_i
@@ -27,7 +28,7 @@ Each member of the flock is considered as an $\alpha$-agent. The goal of the flo
 
 We present here the mathematical tools as well as different functions used in this report and in \cite{olfati-saber_flocking_2006}. 
 
-First, a $\sigma$\emph{-norm} is defined and replaces the standard euclidean norm which is non-differentiable at $z=0$:
+First, a $\sigma$\emph{-norm} is defined and replaces the standard euclidean norm to overcome the fact that the euclidean norm is non-differentiable at $z=0$:
 \begin{equation}
 \|z\|_{\sigma}=\frac{1}{\epsilon}\big[\sqrt{1+\epsilon\|z\|^2}-1\big]
 \label{eq:sigmanorm}
@@ -58,7 +59,7 @@ Finally, a action function is defined as
 &\quad\phi(z)=\frac{a+b}{2}\frac{z+c}{\sqrt{1+(z+c)^2}}+\frac{a-b}{2}
 \label{eq:phi}
 \end{align}
-where $0<a\le b$, $c=(b-a)/\sqrt{4ab}$. The integral of this function has a minimum at $z=d_{\alpha}=\|d\|_{\sigma}$ and a finite cut-off at $z=r_{\alpha}=\|r\|_{\sigma}$. 
+where $0<a\le b$, $c=(b-a)/\sqrt{4ab}$. The integral of this function has a minimum at $z=d_{\alpha}=\|d\|_{\sigma}$ and a finite cut-off at $z=r_{\alpha}=\|r\|_{\sigma}$. This is exactly the expected behavior in order to maintain a constant given distance between flockmates (rule 3) while avoiding collisions (rule 1). 
 
 \subsection{Flocking rules}
 
@@ -84,7 +85,7 @@ The \emph{Migration term} attracts the agent towards its goal and is defined by
 u_i^{\gamma}=-c_1(q_i-q_g)-c_2\cdot p_i
 \label{eq:migration}
 \end{equation}  
-where $c_1,c_2>0$ are constant, $q_i$ is the position of the agent and $q_g$ is the goal position. In the original formulation of this strategy, it was assumed that all agents had a common goal. In our work with personal aerial vehicles, the goal position is different for each user and therefore, the goal position can/is different for each agent. 
+where $c_1,c_2>0$ are constant, $q_i$ is the position of the agent and $q_g$ is the goal position. In the original formulation of this strategy, it was assumed that all agents had a common goal. In our work with personal aerial vehicles, the goal position is different for each user and therefore, the goal position can be/is different for each agent. 
 
 The final control input $u_i$ is composed of the sum of three term defined here above:
 \begin{equation}
@@ -94,15 +95,10 @@ u_i=u_i^{mp}+u_i^{vm}+u_i^{\gamma}
 
 \subsection{Optimization parameters}
 
-The action function (Eq.\ref{eq:phi}) defines how agents interact with each other. The aim is too address the influence of the parameters of the action function on the objectives. The function has two parameters, namely $a$ and $b$ (note that $c$ is fully defined by $a$ and $b$). The individual effect of each parameter on the shape of the action function can be seen on Fig.\ref{fig:effects_actionCurve}
+The action function (Eq.\ref{eq:phi}) defines how agents interact with each other. The aim is too address the influence of the parameters of the action function on the objectives. The function has three parameters, namely $a$, $b$ and $d$ (note that $c$ is fully defined by $a$ and $b$). The individual effect of each parameter on the shape of the action function can be seen on Fig.\ref{fig:effects_actionCurve}. Parameter $a$ represents the height of the potential barrier. Parameter $b$ represents the repulsion effect. Parameter $d$ represents the optimal distance between two neighbors and is therefore where the potential is equal to zero. 
 
 \begin{figure}[h]
     \centering
-    \begin{subfigure}[b]{0.5\textwidth}
-	    \setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}
-	    \input{images/actionCurve_1.tex}
-	    \caption{Influence of parameter d}
-	\end{subfigure}
     \begin{subfigure}[b]{0.5\textwidth}
 		\setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}	
 	    \input{images/actionCurve_2.tex}
@@ -113,7 +109,16 @@ The action function (Eq.\ref{eq:phi}) defines how agents interact with each othe
 	    \input{images/actionCurve_3.tex}
 	    \caption{Influence of parameter b}
 	\end{subfigure}
+	\begin{subfigure}[b]{0.5\textwidth}
+	    \setlength{\abovecaptionskip}{1pt plus 3pt minus 0pt}
+	    \input{images/actionCurve_1.tex}
+	    \caption{Influence of parameter d}
+	\end{subfigure}
 
     \caption{Influence of the parameters on the action function}
     \label{fig:effects_actionCurve}
 \end{figure} 
+
+\subsection{Scenario}
+
+We implemented this flocking strategy in a real-time swarm simulator. This simulator was developed in our lab and is capable of simulating the dynamics of many flying entities in real-time and faster than real-time. We used a challenging scenario, namely the circle scenario: each agent starts at a given position on the circle and has to travel through the center of circle, up to the opposite point of the circle. All agents start at the same time. If no collision avoidance strategy is used, a giant collision occurs in the center of the circle. 

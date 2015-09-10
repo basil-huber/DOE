@@ -1,6 +1,6 @@
 \section{Design of Experiments}
 
-We design the experiment to efficiently determine the influence of the  parameters $a$, $b$, and $d$ on the mean travel time and the mean jerk experienced during the journey.
+We design the experiment to efficiently determine the influence of the  parameters $a$, $b$, and $d$ on the mean travel time and the mean total jerk experienced during the journey.
 
 \subsection{Choosing a Model}
 The complex nature of the problem does not allow to make assumptions on the model underlying the experiments. We therefore choose to investigate several models. We begin with a simple linear model of the form
@@ -10,7 +10,7 @@ The complex nature of the problem does not allow to make assumptions on the mode
 	y_b &= b_0 + \displaystyle\sum_{i=1}^{3} b_i x_i + \varepsilon_b,
 \end{align}
 \end{subequations}
-where $y_a$ and $y_b$ are the responses (mean travel time and mean jerk), $a_i$ and $b_i$ are the effects of the $i$th parameter on the travel time and the jerk respectively, $x_1$, $x_2$ and $x_3$ are the values taken by the parameters $a$, $b$ and $d$ respectively. Since the results of the analysis suggest that the influence of parameter $a$ on the travel time is negligible (cf. section~\ref{sec:results}), we adjust our model by omitting this parameter.
+where $y_a$ and $y_b$ are the responses (mean travel time and mean total jerk), $a_i$ and $b_i$ are the effects of the $i$th parameter on the travel time and the jerk respectively, $x_1$, $x_2$ and $x_3$ are the values taken by the parameters $a$, $b$ and $d$ respectively. Since the results of the analysis suggest that the influence of parameter $a$ on the travel time is negligible (cf. section~\ref{sec:results}), we adjust our model by omitting this parameter.
 The nature of the algorithm suggest that interactions could play an important role. Hence, we will also investigate a linear model allowing for interactions between the parameters as described in eq.~\ref{eq:model_inter}.
 \begin{subequations}\label{eq:model_inter}
 \begin{align}
